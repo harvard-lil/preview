@@ -1,4 +1,4 @@
-Preview - an application for generating static image previews of a page on the Web
+Preview
 =====
 
 Pass Preview a URL and it'll return an image preview of the page.
