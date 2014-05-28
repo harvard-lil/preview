@@ -15,8 +15,8 @@ def generate_preview(request):
     file_name = '%s.png' % get_id()
 
     # Send our phantomjs png creation command out through a subprocess
-    image_generation_command = settings.PROJECT_ROOT + '/lib/phantomjs ' + \
-                               settings.PROJECT_ROOT  + '/lib/rasterize.js "' + \
+    image_generation_command = settings.BASE_DIR + '/lib/phantomjs ' + \
+                               settings.BASE_DIR + '/lib/rasterize.js "' + \
                                url + '" ' + \
                                os.path.join(settings.MEDIA_ROOT, file_name) + \
                                ' "800px*600px"'

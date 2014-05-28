@@ -1,4 +1,4 @@
-preview_web/settings.py
+preview_web/preview/settings.py
 *.pyc
 preivew_web/lib/phantomjs
 .idea
