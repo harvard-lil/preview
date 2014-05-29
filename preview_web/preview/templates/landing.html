@@ -1,21 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Preview</title>
-</head>
+{% load staticfiles %}
 
-<body>
-    <h1>Preview</h1>
-    <h2>Create a thumbnail from a URL.</h2>
-    <br>
-    <p>Preview is a simple application. You exchange a URL for a thumbnailed image of the URL.</p>
-    <br>
-    <br>
-    <p>To create an image, call preview like this,</p>
-    <p>/preview/create?url=http://librarylab.law.harvard.edu</p>
-    <br>
-    <p></p>
-    <p>If you want to take just a slice of that image pass in slice-size parameter,</p>
-    <p>/preview/create?url=http://librarylab.law.harvard.edu&slice-size=800px*600px</p>
-</body>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Preview</title>
+
+    <link rel="shortcut icon" href="{% static "img/favicon.ico" %}" />
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+
+    <link href="{% static "css/landing.css" %}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <h1>Preview</h1>
+                <p class="lead">Create a thumbnail from a URL.</p>
+                <p>Preview is a simple application. You exchange a URL for a thumbnailed image of the URL.</p>
+                <br>
+                <br>
+                <p>To create an image pass in a URL.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu</pre>
+                <br>
+                <p>If you want to take just a slice of that image pass in slice-size parameter.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&slice-size=800px*600px</pre>
+                <br>
+                <p>Once processing has completed you'll get a path to your generated thumbmail. Be sure to download it. We don't store it forever.</p>
+
+<pre>{
+    image_url: "/preview/media/qUhIxzEX.png"
+}</pre>
+            </div>
+        </div>
+
+
+
+
+      <div class="row footer">
+          <div class="col-sm-6 col-sm-offset-3">
+            <div class="branding">
+                <a class="lil" href="http://librarylab.law.harvard.edu">A Harvard Library Innovation Lab Project<img class="logo" src="{% static "img/liblabstamp.png" %}"></a>
+            </div>
+          </div>
+      </div>
+
+    </div> <!-- /container -->
+  </body>
 </html>

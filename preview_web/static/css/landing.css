@@ -1,0 +1,70 @@
+.header-unit {
+  height: 345px;
+  border-right:none;
+  border-left: none;
+  position: relative;
+}
+#video-container {
+    position: absolute;
+}
+#video-container {
+    top:0%;
+    left:0%;
+    height:100%;
+    width:100%;
+    overflow: hidden;
+}
+video {
+    position:absolute;
+    z-index:0;
+}
+video.fillWidth {
+    width: 100%;
+}
+
+h1 {
+    font-size: 50px
+}
+
+h2 {
+    margin-top: 60px;
+}
+
+img {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+video {
+    margin-top: 20px;
+}
+
+body {
+ background-color: #f9f9f9;
+}
+
+p {
+    font-size: 15px;
+    color: #444;
+}
+
+.branding {
+    margin-top:20px;
+}
+
+.logo {
+    margin-top:-17px;
+}
+
+.footer img {
+    height: 50px;
+    margin-left: 10px;
+    float: right;
+}
+
+.footer a {
+    font-size: 13px;
+    martin-top -10px;
+    color: #444;
+    float: right;
+}
