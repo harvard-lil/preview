@@ -9,5 +9,6 @@ admin.autodiscover()
 urlpatterns = patterns('preview.views',
 
     # Common Pages
-    url(r'^$', 'common.generate_preview', name='common_generate_preview'),
+    url(r'^$', 'common.landing', name='common_landing'),
+    url(r'^create/?$', 'common.generate_preview', name='common_generate_preview'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

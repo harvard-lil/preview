@@ -124,3 +124,19 @@ LOGGING = {
         },
     }
 }
+
+
+TEMPLATE_DIRS = (
+    os.path.join(BASE_DIR,  'preview', 'templates'),
+)
+
+# List of callables that know how to import templates from various sources.
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.static',    # include `STATIC_URL` in templates
+    'django.core.context_processors.media',     # include `MEDIA_URL` in templates
+)
