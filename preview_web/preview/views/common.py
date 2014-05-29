@@ -1,7 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
-
+from PIL import Image, ImageOps
+import time
 import random, string, subprocess, os, json
 
 
@@ -19,25 +20,37 @@ def generate_preview(request):
     """
 
     url = request.GET.get('url')
-    slice_size = request.GET.get('slice-size', None)
+    viewport = request.GET.get('viewport', None)
+    thumbnail= request.GET.get('thumb', None)
 
     # Get a unique identifier
     get_id = lambda: ''.join([random.choice(string.ascii_letters) for n in xrange(8)])
     file_name = '%s.png' % get_id()
+    file_path = os.path.join(settings.MEDIA_ROOT, file_name)
 
     # Send our phantomjs png creation command out through a subprocess
     image_generation_command = settings.BASE_DIR + '/lib/phantomjs ' + \
                                settings.BASE_DIR + '/lib/rasterize.js "' + \
-                               url + '" ' + \
-                               os.path.join(settings.MEDIA_ROOT, file_name)
+                               url + '" ' + file_path
 
+    if viewport:
+        image_generation_command += ' "' + viewport + '"'
 
-
-    if slice_size:
-        image_generation_command += ' "' + slice_size + '"'
 
     subprocess.call(image_generation_command, shell=True)
 
+    # The thing we send the user
     json_resonse = {'image_url': os.path.join(settings.MEDIA_URL, file_name)}
+
+
+    if thumbnail:
+        size = (400, 400)
+
+        thumb_name = "thumb-" + file_name
+        thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
+        im = Image.open(file_path)
+        thumb = ImageOps.fit(im, size, Image.ANTIALIAS)
+        thumb.save(thumb_path)
+        json_resonse['thumb_url'] = os.path.join(settings.MEDIA_URL, thumb_name)
 
     return HttpResponse(json.dumps(json_resonse), mimetype="application/json")

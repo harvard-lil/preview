@@ -38,13 +38,19 @@
                 <p>To create an image pass in a URL.</p>
                 <pre>/preview/create?url=http://librarylab.law.harvard.edu</pre>
                 <br>
-                <p>If you want to take just a slice of that image pass in slice-size parameter.</p>
-                <pre>/preview/create?url=http://librarylab.law.harvard.edu&slice-size=800px*600px</pre>
+                <p>If you want to take adjust the viewport used to render the image, pass in the viewport parameter.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&viewport=800px*600px</pre>
                 <br>
-                <p>Once processing has completed you'll get a path to your generated thumbmail. Be sure to download it. We don't store it forever.</p>
-
+                <p>If you want to take adjust the viewport used to render the image, pass in the viewport parameter.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&viewport=800px*600px</pre>
+                <br>
+                <p>If you want to create a thumbnailed version, pass in the thumb parameter and you'll create a 400px max (height and width) thumbnail</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&viewport=800px*600px&thumb=true</pre>
+                <br>
+                <p>Once processing has completed you'll get a JSON object back. Be sure to download any created images. We don't store them forever.</p>
 <pre>{
-    image_url: "/preview/media/qUhIxzEX.png"
+    thumb_url: "/media/thumb-weZDVFCH.png",
+    image_url: "/media/weZDVFCH.png"
 }</pre>
             </div>
         </div>
