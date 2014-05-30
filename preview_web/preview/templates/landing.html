@@ -37,13 +37,16 @@
                 <p>To create an image pass in a URL.</p>
                 <pre>/preview/create?url=http://librarylab.law.harvard.edu</pre>
                 <br>
-                <p>If you want to create a thumbnailed version, pass in the thumb parameter with the max width of the thumbnail.</p>
+                <p>If you want to create a thumbnailed version, pass in the thumb parameter with the max width of the thumbnail. This'll create a thumbnail with a fixed width and a variable length.</p>
                 <pre>/preview/create?url=http://librarylab.law.harvard.edu&thumb=400px</pre>
+                <br>
+                <p>If you want to the thumbnail to be a fixed width and height, have Preview slice it for you.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&thumb=400px*300px</pre>
                 <br>
                 <p>If you want to adjust the viewport used to render the image, pass in the viewport parameter.</p>
                 <pre>/preview/create?url=http://librarylab.law.harvard.edu&thumb=400px&viewport=800px*2000px</pre>
                 <br>
-                <p>If you're trying to generate a preview for a URL that contains things like ampersands, be sure to <a href="http://en.wikipedia.org/wiki/Percent-encoding">URL encode it</a>. If that's a pain, let's rework our Django view so that it accepts POST parameters.</a></p>
+                <p>If you're trying to generate a preview for a URL that contains things like ampersands, be sure to <a href="http://en.wikipedia.org/wiki/Percent-encoding">URL encode</a> the URL first.</p>
                 <br>
                 <br>
                 <p>Once processing has completed you'll get a JSON object back. Be sure to download any created images. We don't store them forever.</p>

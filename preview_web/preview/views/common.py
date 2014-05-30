@@ -2,9 +2,9 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
 
-from PIL import Image, ImageOps
+from PIL import Image
 
-import random, string, subprocess, os, json, re
+import random, string, subprocess, os, json, re, urllib
 
 
 def landing(request):
@@ -22,6 +22,7 @@ def generate_preview(request):
     """
 
     url = request.GET.get('url')
+    url = urllib.unquote(url)
     viewport = request.GET.get('viewport', None)
     thumbnail= request.GET.get('thumb', None)
 
@@ -38,8 +39,6 @@ def generate_preview(request):
     if viewport:
         image_generation_command += ' "' + viewport + '"'
 
-    print image_generation_command
-
     subprocess.call(image_generation_command, shell=True)
 
     # The thing we send the user
@@ -48,24 +47,28 @@ def generate_preview(request):
 
     # If we get a thumbnail parameters, resize the image
     if thumbnail:
-        m = re.search(r"^([0-9]+)", thumbnail)
+        m = re.search(r"^([0-9]+)px\**([0-9]*)", thumbnail)
         requested_thumb_width = int(m.group(1))
 
         thumb_name = "thumb-" + file_name
         thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
         im = Image.open(file_path)
 
-        # Web page caps generally vary greatly in length. Let's
-        # use original length as a max and set width according to the user's
-        # wishes
+
+        # If the user doesn't specify a height for the thumb, let's
+        # use the existing height of the image (ratio adjusted against width)
         wpercent = (requested_thumb_width/float(im.size[0]))
-        hsize = int((float(im.size[1])*float(wpercent)))
-
-        size = (requested_thumb_width, hsize)
-
-        print size
+        h_size = int((float(im.size[1])*float(wpercent)))
+        size = (requested_thumb_width, h_size)
         thumb = im.resize(size, Image.ANTIALIAS)
+
+        # If the user does specify a height, let's crop that thing down
+        if m.group(2):
+            h_size = int(m.group(2))
+            thumb = thumb.crop((0,0, requested_thumb_width, h_size))
+
         thumb.save(thumb_path)
+
         json_resonse['thumb_url'] = os.path.join(settings.MEDIA_URL, thumb_name)
 
     return HttpResponse(json.dumps(json_resonse), mimetype="application/json")
