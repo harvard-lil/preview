@@ -5,11 +5,15 @@ Pass Preview a URL and it'll return an image preview of the page.
 
 ## Installation
 
-You'll need to instal Django 1.6 or higher.
+You'll need to install Django 1.6 or higher.
 
 Download the [PhantomJS](http://phantomjs.org/) binary and place it in your projects lib directory
 
 Be sure to update settings.py with your values. Copy settings.example.py and use it as a starter.
+
+## How to use
+
+Once you're the Preview Django app is up and running, the landing page will give you usage instructions.
 
 ## License
 
