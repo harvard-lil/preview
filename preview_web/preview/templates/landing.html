@@ -31,26 +31,25 @@
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
                 <h1>Preview</h1>
-                <p class="lead">Create a thumbnail from a URL.</p>
-                <p>Preview is a simple application. You exchange a URL for a thumbnailed image of the URL.</p>
+                <p class="lead">Create an image from a URL.</p>
                 <br>
                 <br>
                 <p>To create an image pass in a URL.</p>
                 <pre>/preview/create?url=http://librarylab.law.harvard.edu</pre>
                 <br>
-                <p>If you want to take adjust the viewport used to render the image, pass in the viewport parameter.</p>
-                <pre>/preview/create?url=http://librarylab.law.harvard.edu&viewport=800px*600px</pre>
+                <p>If you want to create a thumbnailed version, pass in the thumb parameter with the max width of the thumbnail.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&thumb=400px</pre>
                 <br>
-                <p>If you want to take adjust the viewport used to render the image, pass in the viewport parameter.</p>
-                <pre>/preview/create?url=http://librarylab.law.harvard.edu&viewport=800px*600px</pre>
+                <p>If you want to adjust the viewport used to render the image, pass in the viewport parameter.</p>
+                <pre>/preview/create?url=http://librarylab.law.harvard.edu&thumb=400px&viewport=800px*2000px</pre>
                 <br>
-                <p>If you want to create a thumbnailed version, pass in the thumb parameter and you'll create a 400px max (height and width) thumbnail</p>
-                <pre>/preview/create?url=http://librarylab.law.harvard.edu&viewport=800px*600px&thumb=true</pre>
+                <p>If you're trying to generate a preview for a URL that contains things like ampersands, be sure to <a href="http://en.wikipedia.org/wiki/Percent-encoding">URL encode it</a>. If that's a pain, let's rework our Django view so that it accepts POST parameters.</a></p>
+                <br>
                 <br>
                 <p>Once processing has completed you'll get a JSON object back. Be sure to download any created images. We don't store them forever.</p>
 <pre>{
-    thumb_url: "/media/thumb-weZDVFCH.png",
-    image_url: "/media/weZDVFCH.png"
+    thumb_url: "/preview/media/thumb-weZDVFCH.png",
+    image_url: "/preview/media/weZDVFCH.png"
 }</pre>
             </div>
         </div>
@@ -60,6 +59,9 @@
 
       <div class="row footer">
           <div class="col-sm-6 col-sm-offset-3">
+              <br>
+              <br>
+              <br>
             <div class="branding">
                 <a class="lil" href="http://librarylab.law.harvard.edu">A Harvard Library Innovation Lab Project<img class="logo" src="{% static "img/liblabstamp.png" %}"></a>
             </div>

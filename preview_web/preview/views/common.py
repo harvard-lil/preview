@@ -1,9 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
+
 from PIL import Image, ImageOps
-import time
-import random, string, subprocess, os, json
+
+import random, string, subprocess, os, json, re
 
 
 def landing(request):
@@ -11,6 +12,7 @@ def landing(request):
     Our landing page. Pitch the project and describe to use it.
     """
     return render_to_response('landing.html')
+
 
 def generate_preview(request):
     """
@@ -36,6 +38,7 @@ def generate_preview(request):
     if viewport:
         image_generation_command += ' "' + viewport + '"'
 
+    print image_generation_command
 
     subprocess.call(image_generation_command, shell=True)
 
@@ -43,13 +46,25 @@ def generate_preview(request):
     json_resonse = {'image_url': os.path.join(settings.MEDIA_URL, file_name)}
 
 
+    # If we get a thumbnail parameters, resize the image
     if thumbnail:
-        size = (400, 400)
+        m = re.search(r"^([0-9]+)", thumbnail)
+        requested_thumb_width = int(m.group(1))
 
         thumb_name = "thumb-" + file_name
         thumb_path = os.path.join(settings.MEDIA_ROOT, thumb_name)
         im = Image.open(file_path)
-        thumb = ImageOps.fit(im, size, Image.ANTIALIAS)
+
+        # Web page caps generally vary greatly in length. Let's
+        # use original length as a max and set width according to the user's
+        # wishes
+        wpercent = (requested_thumb_width/float(im.size[0]))
+        hsize = int((float(im.size[1])*float(wpercent)))
+
+        size = (requested_thumb_width, hsize)
+
+        print size
+        thumb = im.resize(size, Image.ANTIALIAS)
         thumb.save(thumb_path)
         json_resonse['thumb_url'] = os.path.join(settings.MEDIA_URL, thumb_name)
 
