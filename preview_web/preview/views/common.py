@@ -32,7 +32,9 @@ def generate_preview(request):
     file_path = os.path.join(settings.MEDIA_ROOT, file_name)
 
     # Send our phantomjs png creation command out through a subprocess
-    image_generation_command = settings.BASE_DIR + '/lib/phantomjs ' + \
+    image_generation_command = settings.BASE_DIR + \
+                               '/lib/phantomjs ' + \
+                               '--ignore-ssl-errors=yes --ssl-protocol=any ' + \
                                settings.BASE_DIR + '/lib/rasterize.js "' + \
                                url + '" ' + file_path
 

@@ -12,6 +12,7 @@ if (system.args.length < 3 || system.args.length > 5) {
     address = system.args[1];
     output = system.args[2];
     page.viewportSize = { width: 1280, height: 800 };
+    page.settings.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1944.0 Safari/537.36';
     if (system.args.length > 3 && system.args[2].substr(-4) === ".pdf") {
         size = system.args[3].split('*');
         page.paperSize = size.length === 2 ? { width: size[0], height: size[1], margin: '0px' }
